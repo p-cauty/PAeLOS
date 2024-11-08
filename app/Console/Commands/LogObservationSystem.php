@@ -50,6 +50,9 @@ class LogObservationSystem extends Command
             return;
         }
 
+        Storage::put('error.log', $current_logs);
+        $this->info('New logs have been cached.');
+
         $new_logs = str_replace($cached_logs, '', $current_logs);
         $logs = explode("\n", $new_logs);
 
@@ -68,8 +71,5 @@ class LogObservationSystem extends Command
         User::find(1)->notify(new MonitoringAlert($to_notify));
 
         $this->info('PHP errors have been processed and notified.');
-
-        Storage::put('error.log', $current_logs);
-        $this->info('Logs have been cached.');
     }
 }
