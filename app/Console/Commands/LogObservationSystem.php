@@ -38,8 +38,8 @@ class LogObservationSystem extends Command
         $cached_logs = $cached_modified > $midnight ?
             (string) Storage::get(self::LOCAL_LOG_CACHE) :
             '';
-        $current_logs = file_exists(env('app.log_file_path')) ?
-            (string) file_get_contents(env('app.log_file_path')) :
+        $current_logs = file_exists(config('app.log_file_path')) ?
+            (string) file_get_contents(config('app.log_file_path')) :
             '';
 
         $cached_hash = md5($cached_logs);
